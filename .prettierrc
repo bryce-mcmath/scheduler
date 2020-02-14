@@ -1,0 +1,6 @@
+{
+  "extends": "react-app",
+  "parser": "babel",
+  "trailingComma": "none",
+  "singleQuote": true
+}
