@@ -25,4 +25,26 @@ const getAppointmentsForDay = (state, day) => {
   return foundAppts;
 };
 
-module.exports = { getAppointmentsForDay };
+const getInterview = (state, id) => {
+  const interview = {
+    id
+  };
+  if (
+    typeof state.interviewers === 'object' &&
+    Object.keys(state.interviewers).length > 0
+  ) {
+    if (
+      typeof state.appointments === 'object' &&
+      Object.keys(state.appointments).length > 0
+    ) {
+      interview.interviewer = state.interviewers[id];
+      if (state.appointments[id.toString()]) {
+        interview.student = state.appointments[id.toString()].interview.student;
+      }
+    }
+  }
+
+  return interview;
+};
+
+module.exports = { getAppointmentsForDay, getInterview };

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DayList from './DayList';
 import Appointment from 'components/Appointment';
-import { getAppointmentsForDay } from '../helpers/selectors';
+import { getAppointmentsForDay, getInterview } from '../helpers/selectors';
 
 import 'components/Application.scss';
 
@@ -10,7 +10,8 @@ export default function Application() {
   const [state, setState] = useState({
     day: 'Monday',
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
 
   const setDay = day =>
@@ -19,23 +20,25 @@ export default function Application() {
       day
     });
 
-  const setDays = days =>
-    setState(prev => ({
-      ...prev,
-      days
-    }));
-
   useEffect(() => {
-    axios
-      .get(`/api/days`)
-      .then(res => {
-        setDays(res.data);
-      })
-      .catch(err => {
-        console.log('Error: ', err);
+    Promise.all([
+      axios.get(`/api/days`),
+      axios.get(`/api/appointments`),
+      axios.get(`/api/interviewers`)
+    ]).then(all => {
+      setState({
+        ...state,
+        days: all[0].data,
+        appointments: all[1].data,
+        interviewers: all[2].data
       });
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(state.interviewers);
+  console.log(state.appointments);
+  console.log(getAppointmentsForDay(state, state.day));
 
   return (
     <main className="layout">
@@ -57,7 +60,16 @@ export default function Application() {
       </section>
       <section className="schedule">
         {getAppointmentsForDay(state, state.day).map(appt => {
-          return <Appointment {...appt} key={appt.id} />;
+          return (
+            <Appointment
+              {...appt}
+              key={appt.id}
+              interview={getInterview(
+                state,
+                appt.interview && appt.interview.interviewer
+              )}
+            />
+          );
         })}
         <Appointment key={'last'} time="5PM" />
       </section>
