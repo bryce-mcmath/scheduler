@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default function Empty({ onAdd }) {
+export default function Empty({ onClick }) {
   return (
     <main className="appointment__add">
       <img
-        onClick={onAdd}
+        onClick={onClick}
         className="appointment__add-button"
         src="images/add.png"
         alt="Add"

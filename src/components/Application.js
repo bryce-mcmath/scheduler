@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DayList from './DayList';
 import Appointment from 'components/Appointment';
-import { getAppointmentsForDay, getInterview } from '../helpers/selectors';
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay
+} from '../helpers/selectors';
 
 import 'components/Application.scss';
 
@@ -20,6 +24,36 @@ export default function Application() {
       day
     });
 
+  const bookInterview = (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    setState({ ...state, appointments });
+    return axios.put(`/api/appointments/${id}`, { interview });
+  };
+
+  const cancelInterview = id => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    setState({ ...state, appointments });
+    return axios.delete(`/api/appointments/${id}`);
+  };
+
   useEffect(() => {
     Promise.all([
       axios.get(`/api/days`),
@@ -35,10 +69,6 @@ export default function Application() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(state.interviewers);
-  console.log(state.appointments);
-  console.log(getAppointmentsForDay(state, state.day));
 
   return (
     <main className="layout">
@@ -64,10 +94,10 @@ export default function Application() {
             <Appointment
               {...appt}
               key={appt.id}
-              interview={getInterview(
-                state,
-                appt.interview && appt.interview.interviewer
-              )}
+              interview={getInterview(state, appt.interview)}
+              interviewers={getInterviewersForDay(state, state.day)}
+              bookInterview={bookInterview}
+              cancelInterview={cancelInterview}
             />
           );
         })}

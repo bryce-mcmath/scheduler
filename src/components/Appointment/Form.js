@@ -9,8 +9,8 @@ export default function Form({
   onSave,
   onCancel
 }) {
-  let [studentName, setName] = useState(name || '');
-  let [chosenInterviewer, setInterviewer] = useState(interviewer || null);
+  const [studentName, setName] = useState(name || '');
+  const [chosenInterviewer, setInterviewer] = useState(interviewer || null);
 
   const reset = () => {
     setName('');
@@ -52,7 +52,10 @@ export default function Form({
           <Button danger onClick={cancel}>
             Cancel
           </Button>
-          <Button confirm onClick={onSave}>
+          <Button
+            confirm
+            onClick={() => onSave(studentName, chosenInterviewer)}
+          >
             Save
           </Button>
         </section>

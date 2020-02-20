@@ -11,8 +11,8 @@ export default function InterviewerList({ interviewers, value, onChange }) {
           return (
             <InterviewerListItem
               name={inter.name}
-              selected={inter.value === value}
-              setInterviewer={e => onChange(inter.value)}
+              selected={inter.id === value}
+              setInterviewer={e => onChange(inter.id)}
               avatar={inter.avatar}
               key={key}
             />
