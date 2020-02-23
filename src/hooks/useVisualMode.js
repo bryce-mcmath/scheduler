@@ -4,13 +4,10 @@ const useVisualMode = initial => {
   const [history, setHistory] = useState([initial]);
   const [mode, setMode] = useState(initial);
 
-  const transition = (m, replace) => {
+  const transition = (m, replace = false) => {
     setMode(m);
     if (!replace) {
-      setHistory([...history, m]);
-    } else {
-      const cp = [...history];
-      setHistory([...cp.slice(0, cp.length)]);
+      setHistory(prev => [...prev, m]);
     }
   };
 
