@@ -11,6 +11,7 @@ export default function Form({
 }) {
   const [studentName, setName] = useState(name || '');
   const [chosenInterviewer, setInterviewer] = useState(interviewer || null);
+  const [error, setError] = useState('');
 
   const reset = () => {
     setName('');
@@ -26,6 +27,15 @@ export default function Form({
     e.preventDefault();
   };
 
+  const validate = () => {
+    if (studentName === '') {
+      setError('Student name cannot be blank');
+    } else {
+      setError('');
+      onSave(studentName, chosenInterviewer);
+    }
+  };
+
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
@@ -35,10 +45,12 @@ export default function Form({
             name="name"
             type="text"
             placeholder="Enter Student Name"
-            value={studentName && studentName}
+            data-testid="student-name-input"
+            value={studentName}
             onChange={e => setName(e.target.value)}
           />
         </form>
+        <section className="appointment__validation">{error}</section>
         <InterviewerList
           interviewers={interviewers}
           value={chosenInterviewer}
@@ -52,10 +64,7 @@ export default function Form({
           <Button danger onClick={cancel}>
             Cancel
           </Button>
-          <Button
-            confirm
-            onClick={() => onSave(studentName, chosenInterviewer)}
-          >
+          <Button confirm onClick={validate}>
             Save
           </Button>
         </section>
