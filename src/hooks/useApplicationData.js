@@ -19,11 +19,21 @@ const useApplicationData = initial => {
         create
           ? dispatch({
               type: SET_INTERVIEW,
-              payload: { id, interview, updating: true }
+              payload: {
+                id,
+                interview,
+                updating: true,
+                clientId: state.clientId
+              }
             })
           : dispatch({
               type: SET_INTERVIEW,
-              payload: { id, interview, updating: false }
+              payload: {
+                id,
+                interview,
+                updating: false,
+                clientId: state.clientId
+              }
             })
       );
   };
@@ -47,7 +57,7 @@ const useApplicationData = initial => {
 
     webSocket.onmessage = msg => {
       const data = JSON.parse(msg.data);
-      const { type, clientId, interview } = data;
+      const { type, id, clientId, interview } = data;
 
       if (type === 'SET_ID') {
         dispatch({ type: SET_ID, payload: { clientId } });
