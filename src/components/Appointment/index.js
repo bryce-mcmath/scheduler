@@ -38,14 +38,14 @@ export default function Appointment({
     transition(EDIT);
   };
 
-  const onSave = (name, interviewer) => {
+  const onSave = (name, interviewer, create) => {
     const newInterview = {
       student: name,
       interviewer
     };
 
     transition(SAVING);
-    bookInterview(id, newInterview)
+    bookInterview(id, newInterview, create)
       .then(res => {
         transition(SHOW);
       })
@@ -87,7 +87,12 @@ export default function Appointment({
         />
       )}
       {mode === CREATE && (
-        <Form interviewers={interviewers} onCancel={back} onSave={onSave} />
+        <Form
+          interviewers={interviewers}
+          onCancel={back}
+          onSave={onSave}
+          create={true}
+        />
       )}
       {mode === EDIT && (
         <Form
@@ -96,6 +101,7 @@ export default function Appointment({
           onSave={onSave}
           interviewer={interview.interviewer.id}
           name={interview.student}
+          create={false}
         />
       )}
       {mode === SAVING && <Status message="Saving..." />}

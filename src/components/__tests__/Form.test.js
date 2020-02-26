@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, cleanup, act, fireEvent } from '@testing-library/react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 
 import Form from 'components/Appointment/Form';
 
@@ -37,10 +37,8 @@ describe('Form', () => {
 
     fireEvent.click(getByText('Save'));
 
-    /* 1. validation is shown */
     expect(getByText(/student name cannot be blank/i)).toBeInTheDocument();
 
-    /* 2. onSave is not called */
     expect(onSave).not.toHaveBeenCalled();
   });
   it('can successfully save after trying to submit an empty student name', () => {
@@ -63,7 +61,7 @@ describe('Form', () => {
     expect(queryByText(/student name cannot be blank/i)).toBeNull();
 
     expect(onSave).toHaveBeenCalledTimes(1);
-    expect(onSave).toHaveBeenCalledWith('Lydia Miller-Jones', null);
+    expect(onSave).toHaveBeenCalledWith('Lydia Miller-Jones', null, undefined);
   });
 
   it('calls onCancel and resets the input field', () => {

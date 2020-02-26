@@ -11,17 +11,21 @@ const useApplicationData = initial => {
 
   const setDay = day => dispatch({ type: SET_DAY, payload: day });
 
-  const bookInterview = (id, interview) => {
+  const bookInterview = (id, interview, create) => {
     return axios.put(`/api/appointments/${id}`, { interview }).then(() =>
-      dispatch({
-        type: SET_INTERVIEW,
-        payload: { id, interview, updating: true }
-      })
+      create
+        ? dispatch({
+            type: SET_INTERVIEW,
+            payload: { id, interview, updating: true }
+          })
+        : dispatch({
+            type: SET_INTERVIEW,
+            payload: { id, interview, updating: false }
+          })
     );
   };
 
   const cancelInterview = id => {
-    console.log('id is: ', id);
     return axios.delete(`/api/appointments/${id}`).then(() =>
       dispatch({
         type: SET_INTERVIEW,

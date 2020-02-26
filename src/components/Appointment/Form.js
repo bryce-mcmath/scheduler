@@ -7,7 +7,8 @@ export default function Form({
   interviewers,
   interviewer,
   onSave,
-  onCancel
+  onCancel,
+  create
 }) {
   const [studentName, setName] = useState(name || '');
   const [chosenInterviewer, setInterviewer] = useState(interviewer || null);
@@ -32,7 +33,7 @@ export default function Form({
       setError('Student name cannot be blank');
     } else {
       setError('');
-      onSave(studentName, chosenInterviewer);
+      onSave(studentName, chosenInterviewer, create);
     }
   };
 

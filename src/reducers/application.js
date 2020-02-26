@@ -21,15 +21,17 @@ export default function reducer(state, { type, payload }) {
         [id.toString()]: appointment
       };
 
-      const days = [...state.days];
-      const day = days.filter(x => x.name === state.day)[0];
+      let days = [...state.days];
 
-      // Only update spots when creating or deleting
-      console.log('spots before is: ', day.spots);
-      if (updating) {
-        interview ? day.spots-- : day.spots++;
+      if (updating && !interview) {
+        days = state.days.map(day =>
+          day.appointments.includes(id) ? { ...day, spots: day.spots + 1 } : day
+        );
+      } else if (updating) {
+        days = state.days.map(day =>
+          day.appointments.includes(id) ? { ...day, spots: day.spots - 1 } : day
+        );
       }
-      console.log('spots is: ', day.spots);
 
       return {
         ...state,

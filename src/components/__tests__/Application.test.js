@@ -19,7 +19,6 @@ afterEach(() => {
 });
 
 describe('Application', () => {
-  // WORKING
   it('changes the schedule when a new day is selected', async () => {
     const { getByText } = render(<Application />);
 
@@ -30,7 +29,6 @@ describe('Application', () => {
     expect(getByText('Leopold Silvers')).toBeInTheDocument();
   });
 
-  // WORKING
   it('loads data, books an interview and reduces the spots remaining for Monday by 1', async () => {
     const { container } = render(<Application />);
 
@@ -58,23 +56,8 @@ describe('Application', () => {
     );
 
     expect(getByText(day, 'no spots remaining')).toBeInTheDocument();
-
-    // fireEvent.click(queryByAltText(appointment, 'Delete'));
-
-    // expect(
-    //   getByText(appointment, 'Are you sure you want to delete this interview?')
-    // ).toBeInTheDocument();
-
-    // fireEvent.click(queryByText(appointment, 'Confirm'));
-
-    // expect(getByText(appointment, 'Deleting...')).toBeInTheDocument();
-
-    // await waitForElement(() => getByAltText(appointment, 'Add'));
-
-    // expect(getByText(day, '1 spot remaining')).toBeInTheDocument();
   });
 
-  // WORKING
   it('loads data, cancels an interview and increases the spots remaining for Monday by 1', async () => {
     const { container } = render(<Application />);
 
@@ -104,7 +87,6 @@ describe('Application', () => {
     expect(getByText(day, '2 spots remaining')).toBeInTheDocument();
   });
 
-  // WORKING
   it('shows the save error when failing to save an appointment', async () => {
     const { container } = render(<Application />);
 
@@ -129,7 +111,6 @@ describe('Application', () => {
     await waitForElement(() => getByText(appointment, 'Error saving'));
   });
 
-  // WORKING
   it('shows the delete error when failing to delete an appointment', async () => {
     const { container } = render(<Application />);
 
@@ -152,5 +133,38 @@ describe('Application', () => {
     expect(getByText(appointment, 'Deleting...')).toBeInTheDocument();
 
     await waitForElement(() => getByText(appointment, 'Error deleting'));
+  });
+
+  it('loads data, edits an interview and does not affect the spots remaining', async () => {
+    const { container } = render(<Application />);
+
+    await waitForElement(() => getByText(container, 'Archie Cohen'));
+
+    const appointment = getAllByTestId(
+      container,
+      'appointment'
+    ).find(appointment => queryByText(appointment, 'Archie Cohen'));
+
+    fireEvent.click(queryByAltText(appointment, 'Edit'));
+
+    expect(getByText(appointment, 'Save')).toBeInTheDocument();
+
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+      target: { value: 'Thomas Aquinas' }
+    });
+
+    fireEvent.click(getByAltText(appointment, 'Sylvia Palmer'));
+
+    fireEvent.click(getByText(appointment, 'Save'));
+
+    expect(getByText(appointment, 'Saving...')).toBeInTheDocument();
+
+    await waitForElement(() => getByText(appointment, 'Thomas Aquinas'));
+
+    const day = getAllByTestId(container, 'day').find(day =>
+      queryByText(day, 'Monday')
+    );
+
+    expect(getByText(day, '1 spot remaining')).toBeInTheDocument();
   });
 });
