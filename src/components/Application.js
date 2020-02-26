@@ -16,7 +16,7 @@ export default function Application() {
     days: [],
     appointments: {},
     interviewers: {},
-    clientId: null
+    clientId: 0
   });
 
   const appointments = getAppointmentsForDay(state, state.day).map(appt => {

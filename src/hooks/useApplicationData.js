@@ -1,11 +1,11 @@
 import { useEffect, useReducer } from 'react';
+import axios from 'axios';
 import reducer, {
   SET_DAY,
   SET_APPLICATION_DATA,
   SET_INTERVIEW,
   SET_ID
 } from '../reducers/application';
-import axios from 'axios';
 
 const useApplicationData = initial => {
   const [state, dispatch] = useReducer(reducer, initial);
@@ -50,7 +50,9 @@ const useApplicationData = initial => {
   };
 
   useEffect(() => {
-    const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+    const webSocket = new WebSocket(
+      process.env.REACT_APP_WEBSOCKET_URL || 'ws://localhost:8001'
+    );
     setInterval(() => {
       webSocket.send('ping');
     }, 25000);
