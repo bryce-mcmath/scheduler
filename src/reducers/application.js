@@ -1,6 +1,7 @@
 export const SET_DAY = 'SET_DAY';
 export const SET_APPLICATION_DATA = 'SET_APPLICATION_DATA';
 export const SET_INTERVIEW = 'SET_INTERVIEW';
+export const SET_ID = 'SET_ID';
 
 export default function reducer(state, { type, payload }) {
   switch (type) {
@@ -8,8 +9,12 @@ export default function reducer(state, { type, payload }) {
       return { ...payload };
     case SET_DAY:
       return { ...state, day: payload };
+    case SET_ID:
+      return { ...state, clientId: payload.clientId };
     case SET_INTERVIEW:
-      const { id, interview, updating } = payload;
+      const { id, interview, updating, clientId } = payload;
+
+      if (clientId === state.clientId) return state;
 
       const appointment = {
         ...state.appointments[id.toString()],

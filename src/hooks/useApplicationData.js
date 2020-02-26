@@ -2,7 +2,8 @@ import { useEffect, useReducer } from 'react';
 import reducer, {
   SET_DAY,
   SET_APPLICATION_DATA,
-  SET_INTERVIEW
+  SET_INTERVIEW,
+  SET_ID
 } from '../reducers/application';
 import axios from 'axios';
 
@@ -12,26 +13,30 @@ const useApplicationData = initial => {
   const setDay = day => dispatch({ type: SET_DAY, payload: day });
 
   const bookInterview = (id, interview, create) => {
-    return axios.put(`/api/appointments/${id}`, { interview }).then(() =>
-      create
-        ? dispatch({
-            type: SET_INTERVIEW,
-            payload: { id, interview, updating: true }
-          })
-        : dispatch({
-            type: SET_INTERVIEW,
-            payload: { id, interview, updating: false }
-          })
-    );
+    return axios
+      .put(`/api/appointments/${id}`, { interview, clientId: state.clientId })
+      .then(() =>
+        create
+          ? dispatch({
+              type: SET_INTERVIEW,
+              payload: { id, interview, updating: true }
+            })
+          : dispatch({
+              type: SET_INTERVIEW,
+              payload: { id, interview, updating: false }
+            })
+      );
   };
 
   const cancelInterview = id => {
-    return axios.delete(`/api/appointments/${id}`).then(() =>
-      dispatch({
-        type: SET_INTERVIEW,
-        payload: { id, interview: null, updating: true }
-      })
-    );
+    return axios
+      .delete(`/api/appointments/${id}`, { data: { clientId: state.clientId } })
+      .then(() =>
+        dispatch({
+          type: SET_INTERVIEW,
+          payload: { id, interview: null, updating: true }
+        })
+      );
   };
 
   useEffect(() => {
@@ -41,12 +46,20 @@ const useApplicationData = initial => {
     }, 25000);
 
     webSocket.onmessage = msg => {
-      const msgObj = JSON.parse(msg.data);
-      const { type, id, interview } = msgObj;
-      if (type === 'SET_INTERVIEW') {
+      const data = JSON.parse(msg.data);
+      const { type, clientId, interview } = data;
+
+      if (type === 'SET_ID') {
+        dispatch({ type: SET_ID, payload: { clientId } });
+      } else if (type === 'SET_INTERVIEW') {
         dispatch({
           type,
-          payload: { id, interview: interview || null, updating: false }
+          payload: {
+            id,
+            interview: interview || null,
+            updating: true,
+            clientId
+          }
         });
       }
     };

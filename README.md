@@ -1,14 +1,15 @@
-# FoodZebra
+# Scheduler
 
-> Order-for-pickup app that uses SMS to keep customers notified of progress
+> Client side of a fullstack React app that utilizes websockets to keep users updated of interview bookings
 
 <!-- Badges -->
 
-[![Build Status](https://travis-ci.com/bryce-mcmath/foodzebra.svg?branch=master)](https://travis-ci.com/bryce-mcmath/foodzebra)
+[![Build Status](https://travis-ci.com/bryce-mcmath/scheduler.svg?branch=master)](https://travis-ci.com/bryce-mcmath/scheduler)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-FoodZebra is a responsive fullstack application made to model a restaurants online ordering process, from both the user's view and the restaurant's. It uses the Twilio API to notify both parties of changes in the order's status via SMS.
+Scheduler is a responsive and fullstack application made to model an interview booking system, complete with unit, integration, and end-to-end tests. It uses websockets to keep all current users updated of changes other users make and update the state of the app without having to refresh. It was made with modern react, including custom hooks and reducers.
 
-To learn more and see it in action, read further. Or visit it [live](https://ancient-woodland-75923.herokuapp.com/) and try making an order (of five items or less please.) You don't have to give us your phone number but receiving the notifications is sort of the fun part.
+To learn more and see it in action, read further. Or visit it [live](https://suspicious-hodgkin-62d695.netlify.com/) and try adding, editing, or deleting an interview yourself
 
 ## Table of contents
 
@@ -30,15 +31,7 @@ To learn more and see it in action, read further. Or visit it [live](https://anc
 
 <!-- Gifs -->
 
-### Customer Demo:
-
-![Customer Demo](https://github.com/bryce-mcmath/foodzebra/blob/master/docs/demo_customer.gif?raw=true)
-
-### Operator Demo:
-
-![Operator Demo](https://github.com/bryce-mcmath/foodzebra/blob/master/docs/demo_operator.gif?raw=true)
-
-The above gifs demonstrate basic usage. For more gifs, screenshots, and the ERD we created at the start of this project, please navigate to the /docs directory from the root of this repo.
+The above gif demonstrate basic usage. For more screencaps and other documentation, please navigate to the /docs directory from the root of this repo.
 
 ## Getting started
 
@@ -49,8 +42,6 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 If you don't have Nodejs and npm installed, install them from [here.](https://nodejs.org/en/)
-
-Set up a free ElephantSQL cloud database [here](https://customer.elephantsql.com/instance/create?plan=turtle) using the migration and seed files in /queries.
 
 ### Installing and Running
 
@@ -100,7 +91,7 @@ Congrats! Now everytime you push to master, you'll automatically check that inst
 
 ## Contributing
 
-1. Fork it (<https://github.com/bryce-mcmath/foodzebra/fork>)
+1. Fork it (<https://github.com/bryce-mcmath/scheduler/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`) or issue branch (`git checkout -b issue/brokenThing`)
 3. Commit your changes (`git commit -m 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
@@ -108,38 +99,23 @@ Congrats! Now everytime you push to master, you'll automatically check that inst
 
 ## Meta
 
-Wilson Wong – [wilwong89](https://github.com/wilwong89) – wilwong89@gmail.com
-
 Bryce McMath – [bryce-mcmath](https://github.com/bryce-mcmath) – bryce.j.mcmath@gmail.com
 
 ## Known issues / bugs
 
-- You can only order five items at a time due to our free (rate-limited) usage of ElephantSQL
 - Bugs? What bugs?
 
-_To add an issue, start a new one [here.](https://github.com/bryce-mcmath/foodzebra/issues)_
+_To add an issue, start a new one [here.](https://github.com/bryce-mcmath/scheduler/issues)_
 
 ## Feature roadmap
 
 ### In the works
 
-- Hook up add, update, delete menu routes to UI
-- Hook up delete order routes to UI
-- Hook up customer login, logout, register routes to UI
 
 ### Planned
 
-- Switch from semantic-vue to vuetify
-- Autofill forms if customer is logged in
-- Add a dashboard with basic analytics for operators
-- Add ability to send custom SMS to any unfulfilled order
 
 _If you'd like to add a feature yourself, please see the [Contributing](#contributing) guidelines._
 
 ## Acknowledgements
 
-- We only had a week to do this and we used some tools we were interested in but not yet familiar with
-- It was a blast
-- I'm very tired
-
-## ![FoodZebra](https://github.com/bryce-mcmath/foodzebra/blob/master/docs/large_foodzebra.png?raw=true)
