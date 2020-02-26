@@ -36,6 +36,10 @@ const useApplicationData = initial => {
 
   useEffect(() => {
     const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+    setInterval(() => {
+      webSocket.send('ping');
+    }, 25000);
+
     webSocket.onmessage = msg => {
       const msgObj = JSON.parse(msg.data);
       const { type, id, interview } = msgObj;
