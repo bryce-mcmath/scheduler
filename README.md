@@ -29,7 +29,8 @@ To learn more and see it in action, read further. Or visit it [live](https://sus
 
 ## Usage
 
-<!-- Gifs -->
+<!-- Gif -->
+![Scheduler Usage](https://raw.githubusercontent.com/bryce-mcmath/scheduler/master/docs/demo.gif)
 
 The above gif demonstrate basic usage. For more screencaps and any other documentation, please navigate to the /docs directory from the root of this repo.
 
