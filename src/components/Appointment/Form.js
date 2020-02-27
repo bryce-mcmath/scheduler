@@ -40,7 +40,11 @@ export default function Form({
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
-        <form autoComplete="off" onSubmit={handleSubmit}>
+        <form
+          data-testid="appointment-form"
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
           <input
             className="appointment__create-input text--semi-bold"
             name="name"

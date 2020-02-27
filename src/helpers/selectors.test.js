@@ -17,6 +17,12 @@ const state = {
       name: 'Tuesday',
       appointments: [4, 5],
       interviewers: [1, 2]
+    },
+    {
+      id: 3,
+      name: 'Wednesday',
+      appointments: [7, 9],
+      interviewers: [9, 5]
     }
   ],
   appointments: {
@@ -72,8 +78,13 @@ test('getAppointmentsForDay returns an empty array when the days data is empty',
   expect(result.length).toEqual(0);
 });
 
-test('getAppointmentsForDay returns an empty array when the day is not found', () => {
+test('getAppointmentsForDay returns an empty array when their are no matching keys', () => {
   const result = getAppointmentsForDay(state, 'Wednesday');
+  expect(result).toEqual([]);
+});
+
+test('getAppointmentsForDay returns an empty array when the day is not found', () => {
+  const result = getAppointmentsForDay(state, 'Thursday');
   expect(result.length).toEqual(0);
 });
 
@@ -94,6 +105,11 @@ test('getInterview returns an object with the interviewer data', () => {
 test('getInterview returns null if no interview is booked', () => {
   const result = getInterview(state, state.appointments['2'].interview);
   expect(result).toBeNull();
+});
+
+test('getInterview returns an null when there are no appointments', () => {
+  const result = getInterview({ ...state, appointments: {} }, 'Monday');
+  expect(result).toEqual(null);
 });
 
 test('getInterviewersForDay returns an array', () => {
@@ -121,6 +137,42 @@ test('getInterviewersForDay returns an empty array when the days data is empty',
 });
 
 test('getInterviewersForDay returns an empty array when the day is not found', () => {
+  const result = getInterviewersForDay(state, 'Thursday');
+  expect(result.length).toEqual(0);
+});
+
+test('getInterviewersForDay returns an empty array when there are no matching keys', () => {
   const result = getInterviewersForDay(state, 'Wednesday');
   expect(result.length).toEqual(0);
+});
+
+test('Get appointments throws an error if input is invalid', () => {
+  const t = () => {
+    getAppointmentsForDay({ days: 'invalid', appointments: 'invalid' }, null);
+  };
+  expect(t).toThrow('Argument error in getAppointmentsForDay selector');
+});
+
+test('Get interview throws an error if input is invalid', () => {
+  const t = () => {
+    getInterview({ interviewers: 'invalid', appointments: 'invalid' }, null);
+  };
+  expect(t).toThrow('Argument error in getInterview selector');
+});
+
+test('Get interview returns null if there are no interviewers or appointments', () => {
+  const result = getInterview(
+    { interviewers: [], appointments: [] },
+    { data: 'data' }
+  );
+  expect(result).toEqual(null);
+});
+
+test('Get interviewersForDay returns empty array if interviewers input is not an object', () => {
+  const result = getInterviewersForDay(
+    { days: ['Monday'], interviewers: 'invalid' },
+    'Monday'
+  );
+
+  expect(result).toEqual([]);
 });

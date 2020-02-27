@@ -1,5 +1,5 @@
 /**
- *
+ * Returns array of appointments for a given day
  * @param {Object} state
  * @param {String} day - eg. 'Monday'
  */
@@ -56,7 +56,7 @@ const getInterview = ({ interviewers, appointments }, interview) => {
 };
 
 /**
- *
+ * Returns array of interviewers for a give day
  * @param {Object} state
  * @param {String} day - eg. 'Monday'
  */

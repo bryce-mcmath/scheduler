@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { render, cleanup, fireEvent } from '@testing-library/react';
-
 import Form from 'components/Appointment/Form';
 
 afterEach(cleanup);
@@ -41,6 +39,7 @@ describe('Form', () => {
 
     expect(onSave).not.toHaveBeenCalled();
   });
+
   it('can successfully save after trying to submit an empty student name', () => {
     const onSave = jest.fn();
     const { getByText, getByPlaceholderText, queryByText } = render(
@@ -69,7 +68,7 @@ describe('Form', () => {
     const { getByText, getByPlaceholderText, queryByText } = render(
       <Form
         interviewers={interviewers}
-        name="Lydia Mill-Jones"
+        name="Lydia Miller-Jones"
         onSave={jest.fn()}
         onCancel={onCancel}
       />
@@ -88,5 +87,16 @@ describe('Form', () => {
     expect(getByPlaceholderText('Enter Student Name')).toHaveValue('');
 
     expect(onCancel).toHaveBeenCalledTimes(1);
+  });
+
+  it('prevents default behaviour if someone attemps to submit the form', () => {
+    const { getByPlaceholderText, getByTestId } = render(
+      <Form interviewers={interviewers} name="Lydia Miller-Jones" />
+    );
+
+    fireEvent.submit(getByTestId('appointment-form'));
+
+    // Verify the view has not changed as it would if default was not prevented
+    expect(getByPlaceholderText('Enter Student Name')).toBeInTheDocument();
   });
 });

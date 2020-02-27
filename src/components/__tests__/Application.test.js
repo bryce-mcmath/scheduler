@@ -10,10 +10,10 @@ import {
   getByPlaceholderText,
   getByAltText,
   queryByText,
-  queryByAltText,
-  prettyDOM
+  queryByAltText
 } from '@testing-library/react';
 import Application from 'components/Application';
+// import useVisualMode from '../../hooks/useVisualMode';
 
 afterEach(() => {
   cleanup();
@@ -168,4 +168,31 @@ describe('Application', () => {
 
     expect(getByText(day, '1 spot remaining')).toBeInTheDocument();
   });
+
+  // it('switches modes if there is an interview in empty mode', async () => {
+  //   jest.mock('../../hooks/useVisualMode');
+
+  //   let mode = 'SHOW';
+
+  //   const setMode = m => {
+  //     mode = m;
+  //   };
+
+  //   const transition = m => {
+  //     setMode(m);
+  //   };
+
+  //   const back = undefined;
+
+  //   useVisualMode.mockReturnValue({ mode, transition, back });
+
+  //   const { container } = render(<Application />);
+
+  //   await waitForElement(() => getByText(container, 'Archie Cohen'));
+
+  //   const appointment = getAllByTestId(
+  //     container,
+  //     'appointment'
+  //   ).find(appointment => queryByText(appointment, 'Archie Cohen'));
+  // });
 });
