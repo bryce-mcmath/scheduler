@@ -169,30 +169,30 @@ describe('Application', () => {
     expect(getByText(day, '1 spot remaining')).toBeInTheDocument();
   });
 
-  // it('switches modes if there is an interview in empty mode', async () => {
-  //   jest.mock('../../hooks/useVisualMode');
+  it('switches modes if there is an interview in empty mode', async () => {
+    let mode = 'SHOW';
 
-  //   let mode = 'SHOW';
+    const setMode = m => {
+      mode = m;
+    };
 
-  //   const setMode = m => {
-  //     mode = m;
-  //   };
+    const transition = m => {
+      setMode(m);
+    };
 
-  //   const transition = m => {
-  //     setMode(m);
-  //   };
+    const back = undefined;
 
-  //   const back = undefined;
+    jest.mock('../../hooks/useVisualMode', () => ({
+      useVisualMode: jest.fn().mockReturnValue({ mode, transition, back })
+    }));
 
-  //   useVisualMode.mockReturnValue({ mode, transition, back });
+    const { container } = render(<Application />);
 
-  //   const { container } = render(<Application />);
+    await waitForElement(() => getByText(container, 'Archie Cohen'));
 
-  //   await waitForElement(() => getByText(container, 'Archie Cohen'));
-
-  //   const appointment = getAllByTestId(
-  //     container,
-  //     'appointment'
-  //   ).find(appointment => queryByText(appointment, 'Archie Cohen'));
-  // });
+    const appointment = getAllByTestId(
+      container,
+      'appointment'
+    ).find(appointment => queryByText(appointment, 'Archie Cohen'));
+  });
 });
