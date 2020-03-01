@@ -89,11 +89,11 @@ npm run cypress
 - [Nodejs](https://nodejs.org/en/) - Javascript runtime
 - [Express](https://expressjs.com/) - Framework used for API in Node
 - [PostgreSQL](https://www.postgresql.org/) - Open source object-relational database
-- [Heroku]() - For deployment and hosted database
-- [Circle CI]() - Continuous integration platform
-- [Jest]() - JS testing framework
-- [Cypress]() - JS end-to-end testing framework
-- [ws]() - Websocket client and server for Nodejs
+- [Heroku](https://www.heroku.com) - For deployment and hosted database
+- [Circle CI](https://www.circleci.com) - Continuous integration platform
+- [Jest](https://www.jestjs.io) - JS testing framework
+- [Cypress](https://www.cypress.io) - JS end-to-end testing framework
+- [ws](https://www.npmjs.com/package/ws) - Websocket client and server for Nodejs
 
 ## Contributing
 
@@ -105,7 +105,7 @@ npm run cypress
 
 ## Meta
 
-Bryce McMath – [bryce-mcmath](https://github.com/bryce-mcmath) – bryce.j.mcmath@gmail.com
+Bryce McMath – [bryce-mcmath](https://github.com/bryce-mcmath) – [bryce.j.mcmath@gmail.com](mailto:bryce.j.mcmath@gmail.com)
 
 ## Known issues / bugs
 
@@ -128,3 +128,4 @@ _If you'd like to add a feature yourself, please see the [Contributing](#contrib
 ## Acknowledgements
 
 - This project was created as part of the Lighthouse Labs curriculum although I added more to it than was required
+- I also made a [small dashboard app](https://github.com/bryce-mcmath/scheduler-dashboard) that works in tandem with this one, although it's fairly boring. It was just done as an exercise to use class based components
