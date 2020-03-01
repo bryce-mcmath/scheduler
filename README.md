@@ -5,7 +5,7 @@
 <!-- Badges -->
 
 [![build status](https://img.shields.io/circleci/build/github/bryce-mcmath/scheduler/master?label=circleci)](https://circleci.com/gh/bryce-mcmath/scheduler)
-[![code coverage](https://img.shields.io/codecov/c/github/bryce-mcmath/scheduler/master.svg)](https://codecov.io/gh/bryce-mcmath/scheduler/)
+[![code coverage](https://img.shields.io/codecov/c/github/bryce-mcmath/scheduler/production.svg)](https://codecov.io/gh/bryce-mcmath/scheduler/)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 Scheduler is a responsive and fullstack application made to model an interview booking system, complete with unit, integration, and end-to-end tests. It uses websockets to keep all current users updated of changes other users make and update the state of the app without having to refresh. It was made with modern react, including custom hooks and reducers.
