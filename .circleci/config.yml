@@ -1,6 +1,6 @@
 version: 2
 orbs:
-  codecov: codecov/codecov@1.0.2
+  codecov: codecov/codecov@3.6.5
 jobs:
   build:
     docker:
@@ -21,7 +21,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm test
       - codecov/upload:
-          file: {{ ./coverage }}
+          file: {{ coverage }}
 
   deploy:
     machine:
