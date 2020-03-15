@@ -7,15 +7,21 @@ import reducer, {
 	SET_ID
 } from '../reducers/application';
 
-const useApplicationData = (initial) => {
-	const [state, dispatch] = useReducer(reducer, initial);
+const useApplicationData = () => {
+	const [state, dispatch] = useReducer(reducer, {
+		day: 'Monday',
+		days: [],
+		appointments: {},
+		interviewers: {},
+		clientId: 0
+	});
 
 	const setDay = (day) => dispatch({ type: SET_DAY, payload: day });
 
 	const bookInterview = (id, interview, create) => {
 		return axios
 			.put(`/api/appointments/${id}`, { interview, clientId: state.clientId })
-			.then(() =>
+			.then(() => {
 				create
 					? dispatch({
 							type: SET_INTERVIEW,
@@ -34,8 +40,8 @@ const useApplicationData = (initial) => {
 								updating: false,
 								clientId: state.clientId
 							}
-					  })
-			);
+					  });
+			});
 	};
 
 	const cancelInterview = (id) => {
@@ -72,7 +78,8 @@ const useApplicationData = (initial) => {
 						id,
 						interview: interview || null,
 						updating: true,
-						clientId
+						clientId,
+						fromWebSocket: true
 					}
 				});
 			}

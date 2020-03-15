@@ -29,12 +29,12 @@ export default function Form({
 	};
 
 	const validate = () => {
-		if (studentName !== '' && chosenInterviewer !== null) {
+		if (studentName && chosenInterviewer) {
 			setError('');
 			onSave(studentName, chosenInterviewer, create);
 		}
 
-		if (studentName === '') {
+		if (!studentName) {
 			setError('Student name must be included');
 		} else if (chosenInterviewer === null) {
 			setError('You must select an interviewer');

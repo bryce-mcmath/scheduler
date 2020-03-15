@@ -12,8 +12,9 @@ export default function reducer(state, { type, payload }) {
 		case SET_ID:
 			return { ...state, clientId: payload.clientId };
 		case SET_INTERVIEW:
-			const { id, interview, updating, clientId } = payload;
-			if (updating && clientId === state.clientId) return state;
+			const { id, interview, updating, fromWebSocket, clientId } = payload;
+			if (fromWebSocket && clientId && clientId === state.clientId)
+				return state;
 
 			const appointment = {
 				...state.appointments[id.toString()],
