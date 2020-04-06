@@ -96,7 +96,8 @@ const useApplicationData = () => {
 					day: state.day,
 					days: all[0].data,
 					appointments: all[1].data,
-					interviewers: all[2].data
+					interviewers: all[2].data,
+					clientId: state.clientId
 				}
 			});
 		});

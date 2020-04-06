@@ -60,13 +60,11 @@ const getInterview = ({ interviewers, appointments }, interview) => {
  * @param {Object} state
  * @param {String} day - eg. 'Monday'
  */
-const getInterviewersForDay = (state, day) => {
-	const days = state.days;
+const getInterviewersForDay = ({ days, interviewers }, day) => {
 	if (!Array.isArray(days) || days.length < 1) {
 		return [];
 	}
 
-	const interviewers = state.interviewers;
 	if (
 		typeof interviewers !== 'object' ||
 		Object.keys(interviewers).length < 1
@@ -78,6 +76,7 @@ const getInterviewersForDay = (state, day) => {
 	if (!dayObj) {
 		return [];
 	}
+
 	const interviewerKeys = dayObj.interviewers;
 
 	const foundInterviewers = [];
